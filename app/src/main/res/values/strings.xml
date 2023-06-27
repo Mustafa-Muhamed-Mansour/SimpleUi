@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SimpleUi</string>
+    <string name="home">This is a Home</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="log_in_account">Login an Account</string>
+    <string name="log_in">Login</string>
+    <string name="create_account">Create Account</string>
+    <string name="enter_email">Please enter your Email</string>
+    <string name="enter_password">Please enter your Password</string>
+    <string name="enter_name">Please enter your Name</string>
+    <string name="enter_phone">Please enter your Phone</string>
+</resources>
