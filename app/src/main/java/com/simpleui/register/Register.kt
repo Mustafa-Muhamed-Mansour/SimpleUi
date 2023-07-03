@@ -185,7 +185,7 @@ fun RegisterUser(navController: NavController) {
                     ) {
                         Button(onClick = {
                             when {
-                                email.value.isNullOrEmpty() -> {
+                                (email.value.isNullOrEmpty() || email.value.trim().toBoolean()) -> {
                                     Toast.makeText(
                                         context, R.string.enter_email, Toast.LENGTH_SHORT
                                     ).show()
@@ -211,6 +211,7 @@ fun RegisterUser(navController: NavController) {
                                         "Create an account, done successfully",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    navController.navigate("login_page")
                                 }
                             }
                         },
