@@ -69,8 +69,8 @@ dependencies {
     implementation 'com.github.Kaaveh:sdp-compose:1.1.0'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0' /* 21.0.3 */
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.2' /* 20.0.4 */
 
 
 }

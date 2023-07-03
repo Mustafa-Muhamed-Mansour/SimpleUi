@@ -1,6 +1,7 @@
 package com.simpleui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import com.simpleui.R
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
@@ -39,6 +42,9 @@ fun LoginUser(navController: NavController) {
 
     val passwordVisibility = remember { mutableStateOf(false) }
 
+    val auth = FirebaseAuth.getInstance()
+
+    val error = remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -169,29 +175,14 @@ fun LoginUser(navController: NavController) {
                     ) {
                         Button(
                             onClick = {
-                                when {
-                                    email.value.isNullOrEmpty() -> {
-                                        Toast.makeText(
-                                            context,
-                                            R.string.enter_email,
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                                    password.value.isNullOrEmpty() -> {
-                                        Toast.makeText(
-                                            context,
-                                            R.string.enter_password,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    else -> {
-                                        Toast.makeText(
-                                            context,
-                                            "Done, login successfully",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
+                                validationOfWidgetAndLoginAccount(
+                                    context,
+                                    email.value,
+                                    password.value,
+                                    auth,
+                                    navController,
+                                    error
+                                )
                             },
                             modifier = Modifier
                                 .fillMaxWidth(0.7f)
@@ -223,6 +214,46 @@ fun LoginUser(navController: NavController) {
                     Spacer(modifier = Modifier.padding(10.sdp))
                 }
             }
+        }
+    }
+}
+
+fun validationOfWidgetAndLoginAccount(
+    context: Context,
+    email: String,
+    password: String,
+    auth: FirebaseAuth,
+    navController: NavController,
+    error: MutableState<String>
+) {
+    when {
+        email.isNullOrEmpty() -> {
+            Toast.makeText(
+                context,
+                R.string.enter_email,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        password.isNullOrEmpty() -> {
+            Toast.makeText(
+                context,
+                R.string.enter_password,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        else -> {
+            auth
+                .signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        context,
+                        "Done, login successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    navController.navigate("home_page")
+                }.addOnFailureListener {
+                    error.value = it.message.toString()
+                }
         }
     }
 }
