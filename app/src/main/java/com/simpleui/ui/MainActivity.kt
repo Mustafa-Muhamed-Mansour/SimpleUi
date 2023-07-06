@@ -34,15 +34,15 @@ fun navigatePage() {
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "login_page", builder = {
-//        composable("login_page") {
-//            LoginUser(navController = navController)
-//        }
-//        composable("register_page") {
-//            RegisterUser(navController = navController)
-//        }
-//        composable("home_page") {
-//            HomeUser()
-//        }
+        composable("login_page") {
+            LoginUser(navController = navController)
+        }
+        composable("register_page") {
+            RegisterUser(navController = navController)
+        }
+        composable("home_page") {
+            HomeUser()
+        }
 //        composable("login_page", content = { LoginUser(navController = navController) })
 //        composable("register_page", content = { RegisterUser(navController = navController) })
 //        composable("home_page", content = { HomeUser() })

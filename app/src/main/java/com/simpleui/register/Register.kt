@@ -51,7 +51,7 @@ fun RegisterUser(navController: NavController) {
     val userFirebase = FirebaseDatabase.getInstance().reference
 
     val error = remember { mutableStateOf("") }
-
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -340,6 +340,8 @@ fun validationOfWidgetAndCreateAccount(
                 }
         }
     }
+
 }
+
 
 
