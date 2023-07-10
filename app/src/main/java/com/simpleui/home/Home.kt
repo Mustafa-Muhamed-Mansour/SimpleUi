@@ -66,7 +66,9 @@ fun HomeUser() {
 
             Toast.makeText(context, "Welcome Home", Toast.LENGTH_SHORT).show()
 
-            retrieve.child("Users").child(auth.uid.toString())
+            retrieve
+                .child("Users")
+                .child(auth.uid.toString())
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
@@ -93,14 +95,14 @@ fun HomeUser() {
 
 
                 Text(
-                    text = name.value,
+                    text = "Name: ${name.value}",
                     fontSize = 20.ssp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
 
                 Text(
-                    text = phone.value,
+                    text = "Phone: ${phone.value}",
                     fontSize = 17.ssp,
                     color = Color.Black
                 )
